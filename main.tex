@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Algebra: Chapter Zero Solutions}
+\author{jacobszelko }
+\date{May 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+#=
+
+Algebra: Chapter Zero Chapter 2, Exercise 2.7
+
+A quick computational approach to get a feel for what the approach underlying this solution may be.
+Based on conversation, seems like the identity and "flip" of the combination is the key here with p1 being identity and p3 being the "flip".
+
+=#
+
+p1 = [1, 2, 3, 4]
+p2 = [4, 1, 2, 3]
+p3 = [3, 4, 1, 2]
+p4 = [2, 3, 4, 1]
+p5 = [2, 1, 4, 3]
+p6 = [4, 3, 2, 1]
+p7 = [3, 2, 1, 4]
+p8 = [1, 4, 3, 2]
+
+perms = [p1, p2, p3, p4, p5, p6, p7, p8]
+
+labels = [
+    "p1",
+    "p2",
+    "p3",
+    "p4",
+    "p5",
+    "p6",
+    "p7",
+    "p8"
+]
+
+perm_labels = Iterators.product(labels, labels) |> collect |> x -> reshape(x, (1, 64))
+
+commuting = []
+for (idx, val) in enumerate(Iterators.product(perms, perms) |> collect |> x -> reshape(x, (1, 64)))
+    a = val[1]
+    b = val[2]
+
+    c1 = []
+    c2 = []
+
+    for i in 1:4
+        push!(c1, b[a[i]])
+        push!(c2, a[b[i]])
+    end
+    if c1 == c2
+        push!(commuting, perm_labels[idx])
+    end
+end
+
+
+
+
+\end{document}
